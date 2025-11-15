@@ -1,0 +1,34 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+
+\title{Electronic Devices and Circuits}
+\author{Jimmie J. Cathey}
+
+\begin{document}
+\maketitle
+
+\section{Circuit Analysis}
+
+\subsection{Spice Elements}
+The passive and active circuit elements introduced in the previous section are all avaialable in SPIC modeling; however, the manner of node specification and the voltage and current sense or direction are clarified for each element by Figure~\ref{fig:fig_01_02}. THe universal ground node is assigned the number 0. Otherwise, the node numbers $n_1$ (positive node) and $n_2$ (negative node) are positive integers selected to uniquely define each node in the network. The assumed direction of positive current flow is from the node $n_1$ t node $n_2$. The four controlled sources---voltage-controlled voltage source (VCVS), current-controlled voltage source (CCVS), voltage-controlled current source (VCCS), and current-controlled current source (CCCS)--- hae the associated controlling element also shown with its nodes indicated by $cn_1$ (positive) and $cn_2$ (negative). Each element is described by an \textit{element specification statement} in the SPICE netlist code. Table~\ref{tab:tab_01_01} presents the basic format for the element specification statement for each of the elements in Figure~\ref{fig:fig_01_02}. The first letter of the element name specifies the device and the remaining characters must assure a unique name.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/fig_01_02.png}
+	\label{fig:fig_01_02}
+\end{figure}
+
+\begin{table}[h!]
+\centering
+\label{tab:tab_01_01}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+Element & Name & Signal Type & Control Source & Value \\ \hline
+Resistor & R\textperiodcentered\textperiodcentered\textperiodcentered\ & & & $\mathrm{\Omega}$ \\ \hline
+\multicolumn{5}{|l|}{a. Time-varying signal types (SIN, PULSE, EXP, PWL, SFFM) also available.} \\
+\multicolumn{5}{|l|}{b. AC signal types may specify phase angle as well as magnitude.} \\ \hline
+\end{tabular}
+\end{table}
+
+\end{document} 
