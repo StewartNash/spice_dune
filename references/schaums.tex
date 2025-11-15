@@ -1,6 +1,10 @@
 \documentclass[12pt]{article}
 
 \usepackage{graphicx}
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
 
 \title{Electronic Devices and Circuits}
 \author{Jimmie J. Cathey}
@@ -26,9 +30,29 @@ The passive and active circuit elements introduced in the previous section are a
 \hline
 Element & Name & Signal Type & Control Source & Value \\ \hline
 Resistor & R\textperiodcentered\textperiodcentered\textperiodcentered\ & & & $\mathrm{\Omega}$ \\ \hline
+Inductor & L\textperiodcentered\textperiodcentered\textperiodcentered\ & & & H \\ \hline
+Capacitor & C\textperiodcentered\textperiodcentered\textperiodcentered\ & & & F \\ \hline
+Voltage source & V\textperiodcentered\textperiodcentered\textperiodcentered\ & AC or DC\textsuperscript{a} & & V\textsuperscript{b} \\ \hline
+Current source & I\textperiodcentered\textperiodcentered\textperiodcentered\ & AC or DC\textsuperscript{a} & & A\textsuperscript{b} \\ \hline
+VCVS & E\textperiodcentered\textperiodcentered\textperiodcentered\ & & $(cn_1,cn_2)$ & V/V \\ \hline
+CCVS & H\textperiodcentered\textperiodcentered\textperiodcentered\ & & V\textperiodcentered\textperiodcentered\textperiodcentered\ & V/A \\ \hline
+VCCS & G\textperiodcentered\textperiodcentered\textperiodcentered\ & & $(cn_1,cn_2)$ & A/V \\ \hline
+CCCS & F\textperiodcentered\textperiodcentered\textperiodcentered\ & & V\textperiodcentered\textperiodcentered\textperiodcentered\ & A/A \\ \hline
 \multicolumn{5}{|l|}{a. Time-varying signal types (SIN, PULSE, EXP, PWL, SFFM) also available.} \\
 \multicolumn{5}{|l|}{b. AC signal types may specify phase angle as well as magnitude.} \\ \hline
 \end{tabular}
 \end{table}
+
+\begin{example}\label{ex:ex_01_05}
+Use SPICE methods to determine the Th\'evenin equivalent circuit looking to the left through therminals 3,0 for the circuit of Figure~\ref{fig:fig_01_07}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/fig_01_07.png}
+	\label{fig:fig_01_07}
+\end{figure}
+In SPICE independent source models, an ideal voltage source of 0V acts as a short circuit and an ideal current source of 0 A acts as an infinite impedance or open circuit. Advantage will be taken of these two features to solve the problem.\\
+Load resistor $R_L$ of Figure~\ref{fig:fig_01_07}(a) is replaced by the driving point current source $I_dp$ of Figure~\ref{fig:fig_01_07}(b). The netlist code that follows forms a SPICE description of the resulting circuit. The code is set up with parameter-assigned values for $V_1$, $I_2$, and $I_{dp}$.\\
+If both $V_1$ and $I_2$ are deactivated by setting V1value=I2value=0, current $I_{dp}$= 1 A must flow through the Th\'evening equivalent impedance $Z_{Th}=R_{Th}$ so that $v_3=I_{dp}R_{Th}=R_{Th}$.
+\end{example}
 
 \end{document} 
