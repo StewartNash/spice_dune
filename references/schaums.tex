@@ -75,4 +75,61 @@ In order to determine $V_{Th}$ (open-circuit voltage between terminals 3,0), edi
 \subsection{Two-Port Networks}
 The \textit{z} parameters and the \textit{H} parameters can be numerically evaluated by SPICE methods. In electronics applications, the \textit{z} and \textit{h} parameters find application in analysis when small ac signals are impressed on circuits that exhibit limited-range linearity. Thus, in general, the test sources in the SPICE analysis should be of magnitudes comparable to the impressed signals of the anticipated application. Typically, the devices used in an electronic circuit will have one or more dc sources connected to bias or that place the device at a favorable point of operation. The input and output ports may be coupled by large capacitors that act to block the appearance of any dc voltages at the input and output ports while presenting negligible impedance to ac signals. Further, electronic circuits are usually frequency-sensitive so that any set of \textit{z} or \textit{h} parameters is valid for a particular frequency. Any SPICE-based evaluation of the \textit{z} and \textit{h} parameters should be capable of addressing the above outlined characteristics of electronics circuits.
 
+\section{Semiconductor Diodes}
+
+\subsection{Diode Terminal Characteristics}
+\label{subsec:diode_term}
+Use of the Fermi-Dirac probability function to predict charge neutralization give the \emph{static} (non-time-varying) equation for diode junction current:
+\begin{equation}
+	i_D=I_0(e^{v_D/{\eta}V_T}-1\,A
+	\label{eq:eq_02_01}
+\end{equation}
+where
+\begin{itemize}
+	\item[] $V_T{\equiv}kT/q$, V
+	\item[] $v_D\equiv$ diode terminal voltage, V
+	\item[] $I_0\equiv$ temperature-dependent saturation current, A
+	\item[] $T\equiv$ absolute temperature of \emph{p-n} junction, K
+	\item[] $k\equiv$ Boltzmann's constant $(1.38{\times}10^{-23}\mathrm{J/K})$
+	\item[] $q\equiv$ electron charge $(1.6{\times}10^{-19}\mathrm{C})$
+	\item[] $\eta\equiv$ empirical constant, 1 for Ge and 2 for Si
+\end{itemize}
+
+\subsection{The Diode SPICE Model}
+\begin{table}[h!]
+	\centering
+	\label{tab:tab_02_01}
+	\begin{tabular}{|c|l|l|l|c|}
+		\hline
+		Parameter & Description & Reference & Default & Units \\ \hline
+		Is & saturation current & $I_0$ of (\ref{eq:eq_02_01}) & $1{\times}10^{-14}$ & A \\ \hline
+		n & emission coefficient & $\eta$ of (\ref{eq:eq_02_01}) & $1$ & \\ \hline
+		BV & reverse breakdown voltage & $V_R$ of Figure~\ref{fig:fig_02_04} & $\infty$ & V \\ \hline
+		IBV & reverse breakdown current & $I_R$ of Figure~\ref{fig:fig_02_04} & $1{\times}10^{-10}$ & A \\ \hline
+		Rs & ohmic resistance & Subsection\ref{subsec:diode_term}) & 0 & $\mathrm{\Omega}$ \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{Characteristics of Bipolar Junction Transistors}
+
+\subsection{BJT SPICE Model}
+\begin{table}[h!]
+	\centering
+	\label{tab:tab_03_02}
+	\begin{tabular}{|c|l|l|l|c|}
+		\hline
+		Parameter & Description & Major Impact & Default & Units \\ \hline
+		Is & saturation current & $\uparrow\mathrm{Is},{\downarrow}V_\mathrm{BEQ}$ & $1{\times}10^{-16}$ & A \\ \hline
+		Ikf & high current roll-off & $\downarrow\mathrm{Ikf},\downarrow\mathrm{I_C}$ & $\infty$ & A \\ \hline
+		Isc & base-collector leakage & $\uparrow\mathrm{Isc},\uparrow\mathrm{I_C}$ & 0 & A \\ \hline
+		Bf & forward current gain & $\uparrow\mathrm{Bf},\uparrow\mathrm{I_C}$ & 100 & \\ \hline
+		Br & reverse current gain & $\uparrow\mathrm{Br},\uparrow\mathrm{rev.\,I_C}$ & 1 & \\ \hline
+		Rb & base resistance & $\uparrow\mathrm{Rb},\downarrow\mathrm{di_B/dv_{BE}}$ & 0 & $\mathrm{\Omega}$ \\ \hline
+		Rc & collector resistance & $\uparrow\mathrm{Rc},\uparrow\mathrm{V_{CEsat}}$ & 0 & $\mathrm{\Omega}$ \\ \hline
+		Va & forward Early voltage & $\uparrow\mathrm{Va},\uparrow\mathrm{di_C/dt}$ & $\infty$ & V \\ \hline
+		Cjc & base-collector capacitance & high freq. response & 0 & F \\ \hline
+		Cje & base-emitter capacitance & high freq. response & 0 & F \\ \hline
+	\end{tabular}
+\end{table}
+
 \end{document} 
