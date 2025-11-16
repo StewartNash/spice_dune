@@ -2,6 +2,8 @@
 
 \usepackage{graphicx}
 \usepackage{amsthm}
+\usepackage{listings}
+\usepackage{xcolor}
 
 \theoremstyle{definition}
 \newtheorem{example}{Example}[section]
@@ -43,6 +45,8 @@ CCCS & F\textperiodcentered\textperiodcentered\textperiodcentered\ & & V\textper
 \end{tabular}
 \end{table}
 
+
+\subsection{Network Theorems}
 \begin{example}\label{ex:ex_01_05}
 Use SPICE methods to determine the Th\'evenin equivalent circuit looking to the left through therminals 3,0 for the circuit of Figure~\ref{fig:fig_01_07}.
 \begin{figure}[h!]
@@ -51,8 +55,24 @@ Use SPICE methods to determine the Th\'evenin equivalent circuit looking to the 
 	\label{fig:fig_01_07}
 \end{figure}
 In SPICE independent source models, an ideal voltage source of 0V acts as a short circuit and an ideal current source of 0 A acts as an infinite impedance or open circuit. Advantage will be taken of these two features to solve the problem.\\
-Load resistor $R_L$ of Figure~\ref{fig:fig_01_07}(a) is replaced by the driving point current source $I_dp$ of Figure~\ref{fig:fig_01_07}(b). The netlist code that follows forms a SPICE description of the resulting circuit. The code is set up with parameter-assigned values for $V_1$, $I_2$, and $I_{dp}$.\\
-If both $V_1$ and $I_2$ are deactivated by setting V1value=I2value=0, current $I_{dp}$= 1 A must flow through the Th\'evening equivalent impedance $Z_{Th}=R_{Th}$ so that $v_3=I_{dp}R_{Th}=R_{Th}$.
+Load resistor $R_L$ of Figure~\ref{fig:fig_01_07}(a) is replaced by the driving point current source $I_dp$ of Figure~\ref{fig:fig_01_07}(b). The netlist code that follows forms a SPICE description of the resulting circuit. The code is set up with parameter-assigned values for $V_1$, $I_2$, and $I_{dp}$.
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize\color{blue}, label={lst:ex_01_05}]
+Ex1_5.CIR - Thevenin equivalent circuit
+.PARAM V1value=0V I2value=0A Idpvalue=1A
+V1 1 0 DC {V1value}
+R1 1 2 1ohm
+I2 0 2 DC {I2value}
+R2 2 0 3ohm
+R3 2 3 5ohm
+G3 2 3 (1,0) 0.1 ; Voltage-controlled current-source
+Idp 0 3 DC {Idpvalue}
+.END
+\end{lstlisting}
+If both $V_1$ and $I_2$ are deactivated by setting V1value=I2value=0, current $I_{dp}$= 1 A must flow through the Th\'evening equivalent impedance $Z_{Th}=R_{Th}$ so that $v_3=I_{dp}R_{Th}=R_{Th}$. Execution of \texttt{<Ex1\_5.CIR>} by a SPICE program writes the values of the node voltages for nodes 1, 2, and 3 with respect to the universal ground node 0 in a file \texttt{<Ex1\_5.OUT>}. Poll the output file to find $v_3$ = V(3) = $R_{Th}$ = 5.75 $\mathrm{\Omega}$.\\
+In order to determine $V_{Th}$ (open-circuit voltage between terminals 3,0), edit \verb|<Ex1_5.CIR>| to set V1value=10V, I2value=2A, and Idpvalue=0A. Execute \texttt{<Ex1\_5.CIR>} and poll the output file to find $V_{Th}=v_3$ = V(3) = 14 V.
 \end{example}
+
+\subsection{Two-Port Networks}
+The \textit{z} parameters and the \textit{H} parameters can be numerically evaluated by SPICE methods. In electronics applications, the \textit{z} and \textit{h} parameters find application in analysis when small ac signals are impressed on circuits that exhibit limited-range linearity. Thus, in general, the test sources in the SPICE analysis should be of magnitudes comparable to the impressed signals of the anticipated application. Typically, the devices used in an electronic circuit will have one or more dc sources connected to bias or that place the device at a favorable point of operation. The input and output ports may be coupled by large capacitors that act to block the appearance of any dc voltages at the input and output ports while presenting negligible impedance to ac signals. Further, electronic circuits are usually frequency-sensitive so that any set of \textit{z} or \textit{h} parameters is valid for a particular frequency. Any SPICE-based evaluation of the \textit{z} and \textit{h} parameters should be capable of addressing the above outlined characteristics of electronics circuits.
 
 \end{document} 
