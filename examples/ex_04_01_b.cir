@@ -1,0 +1,9 @@
+Ex4_1b.CIR - JFET transfer characteristic
+vGS 1 0 0V
+vDS 2 0 10V
+J 2 1 0 NJFET
+.MODEL NJFET NJF ( Vto=-4V Beta=0.0005ApVsq
++ Rd=1ohm Rs=1ohm CGS=2pF CGD=2pF)
+.DC vGS 0V -4V 0.5V
+.PROBE
+.END

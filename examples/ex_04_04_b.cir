@@ -1,0 +1,9 @@
+Ex4_4b.CIR - MOSFET transfer characteristics
+vGS 1 0 0V
+vDS 2 0 15V
+M 2 1 0 0 NMOSG
+.MODEL NMOSG NMOS (Vto=4V Kp=0.0008ApVsq
++ Rd=1ohm Rg=1kohm)
+.DC vGS 0V 8V 0.1V
+.PROBE
+.END

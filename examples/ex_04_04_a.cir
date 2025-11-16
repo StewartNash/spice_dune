@@ -1,0 +1,9 @@
+Ex4_4a.CIR - MOSFET drain characteristics
+vGS 1 0 0V
+vDS 2 0 0V
+M 2 1 0 0 NMOSG
+.MODEL NMOSG NMOS (Vto=4V Kp=0.0008ApVsq
++ Rd=1ohm Rg=1kohm)
+.DC vDS 0V 25V 0.5V vGS 0V 8V 1V
+.PROBE
+.END

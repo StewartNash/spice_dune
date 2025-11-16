@@ -1,0 +1,11 @@
+Prb4_9.CIR - Worst-case study
+.PARAM Vpo=-3V, Ion=8mA
+RG 1 5 1MEGohm
+VGG 5 0 -1V
+RD 3 4 2.2kohm
+VDD 4 0 15V
+J 3 1 0 NJFET ; RS not used
+.MODEL NJFET NJF ( Vto={Vpo} Beta={Ion/Vpo^2} )
+.DC PARAM Vpo -3V -6V 3V PARAM Ion 4mA 8mA 4mA
+.PRINT DC ID(J) V(J)
+.END

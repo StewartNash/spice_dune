@@ -1,0 +1,11 @@
+Prb4_4.CIR - Self-bias
+RG 1 0 5MEGohm ; VGG not used
+RS 2 0 2kohm
+RD 3 4 3kohm
+VDD 4 0 20V
+J 3 1 2 NJFET
+.MODEL NJFET NJF (Vto=-4V Beta=0.0005ApVsq
++ Rd=1ohm Rs=1ohm CGS=2pF CGD=2pF)
+.DC VDD 20V 20V 1V
+.PRINT DC ID(J) V(1,2) V(3,2)
+.END
