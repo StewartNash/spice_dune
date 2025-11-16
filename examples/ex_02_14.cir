@@ -1,0 +1,10 @@
+Ex2_14.CIR - HW rectifier with L-C filter
+vs 1 0 SIN ( 0V {sqrt(2) *120V} 60Hz)
+D 1 2 DMOD
+L 2 3 8mH
+C 3 0 700uF IC=137V ; Set initial condition
+RL 3 0 100ohm
+.MODEL DMOD D() ; Default diode
+.TRAN 1us 50ms UIC
+.PROBE
+.END

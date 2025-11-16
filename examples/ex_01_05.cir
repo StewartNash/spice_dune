@@ -1,0 +1,10 @@
+Ex1_5.CIR - Thevenin equivalent circuit
+.PARAM V1value=0V I2value=0A Idpvalue=1A
+V1 1 0 DC {V1value}
+R1 1 2 1ohm
+I2 0 2 DC {I2value}
+R2 2 0 3ohm
+R3 2 3 5ohm
+G3 2 3 (1,0) 0.1 ; Voltage-controlled current-source
+Idp 0 3 DC {Idpvalue}
+.END

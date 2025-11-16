@@ -1,0 +1,13 @@
+Ex2_20.CIR - Zener diode spike clipper
+.PARAM F=1kHz T={1/f}
+vs 1 0 SIN ( 0V 10V {f} )
+* Set 10V spike at psotiive peak of vs
+vp 2 1 PULSE ( 0V 10V {T/4} {T/100} {T/100} 1us {T} )
+R 2 3 1ohm
+D1 4 3 DMOD ; Zener diode Z1
+D2 4 0 DMOD ; Zener diode Z2
+RL 3 0 50ohm
+.MODEL DMOD D( BV=9.3V IBV=1A )
+.TRAN 1us 2ms
+.PROBE
+.END

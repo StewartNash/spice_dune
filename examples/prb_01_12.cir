@@ -1,0 +1,11 @@
+Prb1_12.CIR z-parameter evaluation
+.PARAM I1value=1mA I2value=0mA
+I1 0 1 AC {I1value}
+F 1 0 VB 0.3
+R1 1 2 10ohm
+VB 2 3 0V ; Current sense
+R2 3 0 6ohm
+I2 0 2 AC {I2value}
+.DC I1 0 1mA 1mA I2 1mA 0 1mA ; Nested loop
+.PRINT DC V(1) I(I1) V(2) I(I2)
+.END

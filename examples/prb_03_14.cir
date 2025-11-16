@@ -1,0 +1,16 @@
+Prb3_14.CIR - CE amplifier
+vS 1 0 SIN(0V 4V 10kHz)
+RS 1 2 100kohm
+CC1 2 3 100uF
+Q 4 3 0 QNPN
+RF 3 4 180kohm
+RC 4 5 2kohm
+VCC 5 0 12V
+CC2 4 6 100uF
+RL 6 0 2kohm
+.MODEL QNPN NPN() ; Default transistor
+.DC VCC 12V 12V 1V
+.PRINT DC IB(Q) IC(Q) V(3) V(4)
+.TRAN 1us 0.1ms ; Signal values
+.PROBE
+.END

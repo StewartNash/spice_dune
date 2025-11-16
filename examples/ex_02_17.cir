@@ -1,0 +1,9 @@
+Ex2_17.CIR - Clamping circuit
+vi 1 0 SIN( 0V 10V 1kHz )
+C 1 2 10uF IC=5V ; Set initial condition
+D 2 3 DMOD
+VB 3 0 5V
+.MODEL DMOD D(n=0.0001) ; Ideal diode
+.TRAN 1us 2ms UIC
+.PROBE
+.END

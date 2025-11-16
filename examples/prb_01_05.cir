@@ -1,0 +1,10 @@
+Prb.1_5.CIR
+Vs 1 0 DC 10V
+R1 1 2 500ohm
+E 2 0 (3,0) 0.001 ; Last entry is value of k
+F 0 3 Vs 100
+R2 3 0 100ohm
+RL 3 0 100ohm
+.DC Vs 10 10 1
+.PRINT DC V(3)
+.END

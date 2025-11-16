@@ -1,0 +1,15 @@
+Prb2_29.CIR - FW rectifier
+vs 1 0 SIN( 0V {sqrt(2)*120V} 60Hz )
+Rs 1 2 0.0010ohm
+* Ideal transformer, 10:1 ratio
+L1 2 0 1H IC=-0.39A
+L2 3 0 10mH
+L3 0 4 10mH
+kall L1 L2 L3 1
+D1 3 5 DMOD
+D2 4 5 DMOD
+RL 5 0 5ohm
+.MODEL DMOD D(N=0.0001) ; Ideal diode
+.TRAN 1us 16.667ms 0s 1e-6s UIC
+.PROBE
+.END

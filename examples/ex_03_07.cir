@@ -1,0 +1,12 @@
+EX3_7.CIR - CE quiescent value
+R1 0 1 1kohm
+R2 2 1 20kohm
+RC 2 3 3kohm
+RE 4 0 10ohm
+VCC 2 0 15V
+Q 3 1 4 QNPNG
+.MODEL QNPNG NPN(Is=10fA Ikf=150mA Isc=10fA Bf=150
++ Br=3 Rb=1ohm Rc=1ohm Va=30V Cjc=10pF Cje=15pF)
+.DC VCC 15V 15V 1V
+.PRINT DC IB(Q) IC(Q) V(1,4) V(3,4)
+.END

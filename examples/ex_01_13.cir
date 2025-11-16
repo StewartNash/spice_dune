@@ -1,0 +1,6 @@
+Ex1_13.CIR - Avg & rms current, avg power
+vsVB 1 0 SIN(20V 10V 100Hz 0 0 -30deg)
+R 1 0 10ohm
+.PROBE
+.TRAN 5us 10ms
+.END

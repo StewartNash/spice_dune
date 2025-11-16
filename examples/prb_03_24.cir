@@ -1,0 +1,17 @@
+Prb3_24.CIR - CB amplifier
+vs 1 0 SIN(0V 10mV 1kHz)
+CC1 1 2 100uF
+RE 2 4 3.3kohm
+VEE 0 4 4V
+Q 3 0 2 QNPNG
+RC 3 5 8.1k
+VCC 5 0 15V
+CC2 3 6 100uF
+RL 6 0 15kohm
+.MODEL QNPNG NPN(Is=10fA Ikf=150mA Isc=10fA Bf=150
++ Br=3 Rb=1ohm Rc=1ohm Va=30V Cjc=10pF Cje=15pF)
+.DC VCC 15V 1V
+.PRINT DC V(3,2)
+.TRAN 1us 1ms
+.PROBE
+.END

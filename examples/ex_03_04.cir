@@ -1,0 +1,9 @@
+Ex3_4.CIR
+Ie 0 1 0mA
+Q 2 0 1 QPNPG
+Vcb 2 0 0V
+.MODEL QPNPG pnp (Is=10fA Ikf=150mA Isc=10fA Bf=150
++ Br=3 Rb=1ohm Rc=1ohm Va=30V Cjc=10pF Cje=15pF)
+.DC Vcb 1V -15V 1V Ie 0mA 100mA 10mA
+.PROBE
+.END

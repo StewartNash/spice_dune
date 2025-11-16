@@ -1,0 +1,11 @@
+Ex3_2.CIR
+Ib 0 1 0uA
+Q 2 1 0 QNPN
+*Q 2 1 0 QNPNG
+VC 2 0 0V
+.MODEL QNPN NPN() ; Default BJT
+*.MODEL QNPNG NPN(Is=10fA Ikf=150mA Isc=10fA Bf=150
+*+ Br=3 Rb=1ohm Rc=1ohm Va=30V Cjc=10pF Cje=15pf)
+.DC VC 0V 15V 1V Ib 0uA 150uA 25uA
+.PROBE
+.END

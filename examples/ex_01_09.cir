@@ -1,0 +1,16 @@
+Ex1_9.CIR - z-parameter evaluation
+.PARAM I1value=1mA I5value=0mA
+I1 0 1 AC {I1value}
+R10 1 0 1 Tohm ; Large resistor to avoid floating node
+Ci 1 2 100uF
+RB 2 3 10kohm
+VB 0 3 DC 10V
+R1 2 4 1kohm
+R2 4 0 5kohm
+C2 4 0 0.05uF
+Co 5 4 100uF
+I5 0 5 AC {I5value}
+R50 5 0 1Tohm ; Large resistor to avoid floating node
+.AC LIN 11 10kHz 100kHz
+.PROBE
+.END

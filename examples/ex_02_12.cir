@@ -1,0 +1,9 @@
+Ex2_12.CIR - Half-wave rectifier
+vs 1 0 PULSE ( -15V 15V -0.25ms 0.5ms 0.5ms 2ms 5ms )
+D 1 2 DMOD
+RB 2 3 0.5ohm
+VB 3 0 12V
+.MODEL DMOD D() ; Default diode
+.TRAN 1us 5ms
+.PROBE
+.END

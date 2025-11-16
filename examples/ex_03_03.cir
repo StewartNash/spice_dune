@@ -1,0 +1,9 @@
+Ex3_3.CIR
+Vbe 1 0 0V
+Q 2 1 0 QNPNG
+Vc 2 0 1V
+.MODEL QNPNG NPN(Is=10fA Ikf=150mA Isc=10fA Bf=150
++ Br=3 Rb=1ohm Rc=1ohm Va=30V Cjc=10pF Cje=15pF)
+.DC Vbe 0V 2V 0.01V Vc 0V 2V 0.2V
+.PROBE
+.END

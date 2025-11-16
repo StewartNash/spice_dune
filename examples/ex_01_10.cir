@@ -1,0 +1,16 @@
+Ex1_10.CIR - h-parameter evaluation
+.PARAM I1value=0mA V5value=1mV
+I1 0 1 AC {I1value}
+R10 1 0 1Tohm ; Large resistor to avoid floating node
+Ci 1 2 100uF
+RB 2 3 10kohm
+VB 0 3 DC 10V
+R1 2 4 1kohm
+R2 4 0 5kohm
+C2 4 0 0.05uF
+Co 5 4 100uF
+V5 5 0 AC {V5value}
+.AC LIN 1 10kHz 10kHz
+.PRINT AC Vm(1) Vp(1) Im(Ci) Ip(Ci) ; Mag & phase of inputs
+.PRINT AC Vm(5) Vp(5) Im(Co) Ip(Co) ; Mag & phase of outputs
+.END

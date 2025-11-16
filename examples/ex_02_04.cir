@@ -1,0 +1,9 @@
+Ex2_4.CIR - Diode static characteristic
+vs 1 0 PWL (0s -5V 2s 5V)
+D 1 2 DMOD
+R 2 0 2kohms
+.MODEL DMOD D(n=4 Is=15uA BV=4) ; Nonideal
+*.MODEL DMOD D(n=0.0001) ; Ideal
+.TRAN .1us 2s
+.PROBE
+.END
