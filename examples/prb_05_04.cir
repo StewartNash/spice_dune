@@ -1,0 +1,9 @@
+Prb5_4.CIR
+Ib 0 1 150uA
+Q 2 1 0 QNPNG
+VC 2 0 15V
+.MODEL QNPNG NPN(Is=10fA Ikf=150mA Isc=10fA Bf=150
++ Br=3 Rb=1ohm Rc=1ohm Va=75V Cjc=10pF Cje=15pF)
+.DC TEMP 0 125 5
+.PROBE
+.END

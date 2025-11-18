@@ -1,0 +1,17 @@
+EX6_5.CIR
+vi 1 0 SIN(0V 250mV 10kHz)
+Ri 1 2 100ohm
+CC1 2 3 1000uF
+CC2 4 7 1000uF
+R1 3 0 6kohm
+R2 3 6 50kohm
+RC 6 4 1kohm
+RE 5 0 100ohm
+RL 7 0 1kohm
+VCC 6 0 15V
+Q 4 3 5 QNPNG
+.MODEL QNPNG NPN(Is=10fA Ikf=150mA Isc=10fA Bf=150
++ Br=3 Rb=1ohm Rc=1ohm Va=75V Cjc=10pF Cje=15pF)
+.TRAN 1us 0.1ms
+.PROBE
+.END

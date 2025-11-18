@@ -1,0 +1,12 @@
+Ex5_9.CIR
+VBB 0 1 -1V
+VCC 0 4 -15V
+RB 1 2 2kohm
+RC 3 4 5kohm
+RE 5 0 200ohm
+Q 3 2 5 QNPNG
+.MODEL QNPNG NPN(Is=10fA Ikf=150mA Isc=10fA Bf=150
++ Br=3 Rb=1ohm Rc=1ohm Va=75V Cjc=10pF Cje=15pF)
+.SENS I(VCC)
+.PRINT DC IC(Q) IB(Q)
+.END

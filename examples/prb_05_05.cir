@@ -1,0 +1,10 @@
+Prb5_5.CIR
+.PARAM Beta=0
+Ib 0 1 75uA
+Q 2 1 0 QNPNG
+VC 2 0 0V
+.MODEL QNPNG NPN(Is=10fA Ikf=150mA Isc=10fA Bf=(Beta)
++ Br=3 Rb=1ohm Rc=1ohm Va=75V Cjc=10pF Cje=15pF)
+.DC VC 0V 15V 1V PARAM Beta 50 200 50
+.PROBE
+.END
