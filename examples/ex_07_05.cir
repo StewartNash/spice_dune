@@ -1,0 +1,9 @@
+Ex7_5.CIR
+vi 1 0 SIN(0V 0.25V 10kHz)
+RG 1 0 100kohm
+E 0 2 (1,0) 60
+rds 2 3 30kohm
+RD 3 0 3kohm
+.TRAN 1us 0.1ms
+.PROBE
+.END

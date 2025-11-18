@@ -1,0 +1,17 @@
+Ex7_4.CIR
+vs 1 0 SIN(0V 0.25V 10kHz)
+VDD 5 0 DC 15V
+CC1 1 2 100uF
+CC2 3 6 100uF
+CS 4 0 100uF
+R1 2 0 100kohm
+R2 5 2 600kohm
+RD 5 3 5kohm
+RS 4 0 2.5kohm
+RL 6 0 3kohm
+J 3 2 4 NJFET
+.MODEL NJFET NJF(Vto=-4V Beta=0.005ApVsq
++ Rd=1ohm Rs=1ohm CGS=2pF CGD=2pF)
+.TRAN 1us 0.1ms
+.PROBE
+.END

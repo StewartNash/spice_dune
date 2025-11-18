@@ -1,0 +1,9 @@
+Prb7_8.CIR
+vi 1 0 SIN(0V 0.25V 1kHz)
+RS 1 0 2kohm
+RD 2 0 1kohm
+rds 1 2 1kohm
+G 1 2 (1,0) 2e-3
+.TRAN 1us 1ms
+.PROBE
+.END

@@ -1,0 +1,17 @@
+Prb7_15.CIR
+vs 1 0 SIN(0V 0.25V 10kHz)
+VDD 5 0 DC 15V
+CC1 1 2 100uF
+CC2 3 6 100uF
+CS 4 0 100uF
+R1 2 0 200kohm
+R2 5 2 600kohm
+RD 5 3 2kohm
+RS 4 0 2kohm
+RL 6 0 3kohm
+M 3 2 4 4 NMOSG
+.MODEL NMOSG NMOS (Vto=-4V Kp=0.0008ApVsq
++ Rd=1ohm Rg=1kohm)
+.TRAN 1us 0.1ms
+.PROBE
+.END
