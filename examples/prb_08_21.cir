@@ -1,0 +1,16 @@
+Prb8_21.CIR
+vi 1 0 AC 0.25V
+CC1 1 2 15uF
+RS 2 0 2kohm
+J 3 4 2 NJFET
+.MODEL NJFET NJF( Vto=-4V Beta=0.0005ApVsq
++ Rd=1ohm Rs=1ohm CGS=2pF CGD=2pF)
+R1 4 5 10kohm
+R2 4 0 10kohm
+RD 3 5 500ohm
+VDD 5 0 15V
+CC2 3 6 15uF
+RL 6 0 15kohm
+.AC DEC 100 100Hz 50MegHz
+.PROBE
+.END

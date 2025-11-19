@@ -1,0 +1,14 @@
+Ex8_9.CIR
+vi 1 0 AC 0.250V
+R1 1 0 1kohm
+R2 1 0 16kohm
+Vsen 1 2 DC 0V
+Rhie 2 3 200ohm
+Fhfe 3 4 Vsen 90
+RE 3 0 500ohm
+CE 3 0 330uF
+RC 4 0 1kohm
+RL 4 0 10kohm
+.AC DEC 25 10Hz 10kHz
+.PROBE
+.END

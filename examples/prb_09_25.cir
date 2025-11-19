@@ -1,0 +1,17 @@
+Prb9_25.CIR
+vs 1 0 SIN( 0V 0.5V 1000Hz )
+R1 1 2 10kohm
+R2 2 4 20kohm
+D2 4 3 DMOD
+R3 2 3 20kohm
+X1 2 0 3 0 OPAMP
+.SUBCKT OPAMP 1   2    3   4
+*       Model Inv NInv Out Com
+Rd 1 2 500kohm
+E 5 4 (1,2) -1e5
+Ro 5 3 100ohm
+.ENDS OPAMP
+.MODEL DMOD D(n=1e-10) ; Ideal diode
+.TRAN 1us 2ms
+.PROBE
+.END

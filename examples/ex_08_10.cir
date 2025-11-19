@@ -1,0 +1,15 @@
+Ex8_10.CIR
+vi 2 0 AC 0.250V
+Cc1 2 3 1uF
+R2 6 3 15kohm
+R1 3 0 1kohm
+VCC 6 0 15V
+RC 6 4 3kohm
+Cc2 4 7 1uF
+RL 7 0 5kohm
+Q 4 3 0 QPNPG
+.MODEL QPNPG PNP(Is=10fA Ikf=150mA Ise=10fA Bf=150
++ Br=3 Rb=10ohm Rc=100ohm Va=30V Cjc=10pF Cje=100pF)
+.AC DEC 100 100Hz 1GHz
+.PROBE
+.END
