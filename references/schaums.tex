@@ -77,6 +77,13 @@ The \textit{z} parameters and the \textit{H} parameters can be numerically evalu
 
 \section{Semiconductor Diodes}
 
+\subsection{The Ideal Diode}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/fig_02_01.png}
+	\label{fig:fig_02_01}
+\end{figure}
+
 \subsection{Diode Terminal Characteristics}
 \label{subsec:diode_term}
 Use of the Fermi-Dirac probability function to predict charge neutralization give the \emph{static} (non-time-varying) equation for diode junction current:
@@ -96,6 +103,16 @@ where
 \end{itemize}
 
 \subsection{The Diode SPICE Model}
+The element specification statement for a diode must explicitly name a model even if the default model parameters are intended for use. The general form of the diode specification statement is a as follows, where the \emph{model name} is arbitrarily chosen:
+\begin{center}
+$\mathrm{D}{\cdots}n_1n_2$ \emph{model name}
+\end{center}
+Node $n_1$ is the anode and node $n_2$ is the cathode of the diode. Positive current and voltage directions are clarified by Figure~\ref{fig:fig_02_01}(b).\\
+In addition, the .MODEL control statement must be added to the netlist code even if the default parameters are acceptable. This control statement is
+\begin{center}
+MODEL \emph{model name} D \emph{(parameters)}
+\end{center}
+If the parameters field is left blank, default values are assigned. Otherwise, the parameters field contains the number of desired specifications in the format \emph{parameter name = value}. Specific parameters of concern in this book are documented by Table~\ref{tab:tab_02_01}.
 \begin{table}[h!]
 	\centering
 	\label{tab:tab_02_01}
@@ -113,6 +130,18 @@ where
 \section{Characteristics of Bipolar Junction Transistors}
 
 \subsection{BJT SPICE Model}
+The element specification statement for a BJT must explicitly name a model even if the default model parameters are intended for use. The general form of the transistor specification statement is as follows:
+\begin{center}
+$\mathrm{Q}{\cdots}n_1n_2n_3$ \emph{model name}
+\end{center}
+Nodes $n_1$, $n_2$, and $n_3$ belong to the collector, base, and emitter, respectively. The \emph{model name} is an arbitrary selection of alpha and numeric characters to uniquely identify the model. Positive current and voltage directions for the \textit{pnp} and \textit{npn} transistor are clarified by Figure~\ref{fig:fig_03_04}.\\
+In addition, a .MODEL control statement must be added to the netlist code. This control statement specifies whether the transistor is \emph{pnp} or \emph{npn} and thus has one of the following two forms:
+\begin{center}
+MODEL \emph{model name} PNP \emph{(parameters)}\\
+MODEL \emph{model name} NPN \emph{(parameters)}
+\end{center}
+If the parameter field is left blank, default values are assigned. Non-default desired parameter specifications are entered in the parameter field using the format \emph{parameter name = value}. Specific parameters that are of concern in this book are documented in Table~\ref{tab:tab_03_02}.\\
+All parameter values are entered with positive values regardless of whether the transistor is \textit{pnp} or \textit{npn}. Two transistor models will be used in this chapter--\emph{generic model} and \emph{default model}--as introduced in
 \begin{table}[h!]
 	\centering
 	\label{tab:tab_03_02}
@@ -129,6 +158,60 @@ where
 		Va & forward Early voltage & $\uparrow\mathrm{Va},\uparrow\mathrm{di_C/dt}$ & $\infty$ & V \\ \hline
 		Cjc & base-collector capacitance & high freq. response & 0 & F \\ \hline
 		Cje & base-emitter capacitance & high freq. response & 0 & F \\ \hline
+	\end{tabular}
+\end{table}
+\begin{example}\label{ex:ex_03_02}
+Use SPICE methods to generate the CE collector characteristics for an \textit{npn} transistor characterized by (a) the default parameter values and (b) a reasonable set of values for the parameters appearing in Table~\ref{tab:tab_03_02}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/fig_03_05_a.png}
+	\label{fig:fig_03_05_a}
+\end{figure}
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize\color{blue}, label={lst:ex_03_02}]
+Ex3_2.CIR
+Ib 0 1 0uA
+Q 2 1 0 QNPN
+*Q 2 1 0 QNPNG
+VC 2 0 0V
+.MODEL QNPN NPN() ; Default BJT
+*.MODEL QNPNG NPN(Is=10fA Ikf=150mA Isc=10fA Bf=150
+*+ Br=3 Rb=1ohm Rc=1ohm Va=30V Cjc=10pF Cje=15pf)
+.DC VC 0V 15V 1V Ib 0uA 150uA 25uA
+.PROBE
+.END
+\end{lstlisting}
+\end{example}
+
+\section{Characteristics of Field-Effect Transistors and Triodes}
+
+\subsection{JFET SPICE Model}
+The element specification statement for a JFET must explicitly assign a \emph{model name} that is an arbitrary selection of alpha and numeric characters.
+\begin{table}[h!]
+	\centering
+	\label{tab:tab_04_02}
+	\begin{tabular}{|c|l|l|l|l|}
+		\hline
+		Parameter & Description & Major Impact & Default & Units \\ \hline
+		Vto & pinchoff voltage & shorted-gate current & -2 & V \\ \hline
+		Beta & transcond. coeff. & shorted-gate current & 0.0001 & $\mathrm{A/V^2}$ \\ \hline
+		Rd & drain resistance & current limit & 0 & $\mathrm{\Omega}$ \\ \hline
+		Rs & source resistance & current limit & 0 & $\mathrm{\Omega}$ \\ \hline
+		CGS & gate-source cap. & high frequency & 0 & F \\ \hline
+		CGD & gate-drain cap. & high frequency & 0 & F \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{MOSFET SPICE Model}
+\begin{table}[h!]
+	\centering
+	\label{tab:tab_04_03}
+	\begin{tabular}{|c|l|l|l|l|}
+		\hline
+		Parameter & Description & Default & Units \\ \hline
+		Vto & Threshold voltage & 0 & V \\ \hline
+		Kp & Transcond. coeff. & $2{\times}10^{-5}$ & $\mathrm{A/V^2}$ \\ \hline
+		Rd & Drain resistance & 0 & $\mathrm{\Omega}$ \\ \hline
+		Rg & Gate resistance & 0 & $\mathrm{\Omega}$ \\ \hline
 	\end{tabular}
 \end{table}
 
