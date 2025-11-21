@@ -141,7 +141,7 @@ MODEL \emph{model name} PNP \emph{(parameters)}\\
 MODEL \emph{model name} NPN \emph{(parameters)}
 \end{center}
 If the parameter field is left blank, default values are assigned. Non-default desired parameter specifications are entered in the parameter field using the format \emph{parameter name = value}. Specific parameters that are of concern in this book are documented in Table~\ref{tab:tab_03_02}.\\
-All parameter values are entered with positive values regardless of whether the transistor is \textit{pnp} or \textit{npn}. Two transistor models will be used in this chapter--\emph{generic model} and \emph{default model}--as introduced in
+All parameter values are entered with positive values regardless of whether the transistor is \textit{pnp} or \textit{npn}. Two transistor models will be used in this chapter--\emph{generic model} and \emph{default model}--as introduced in Example~\ref{ex:ex_03_02}.
 \begin{table}[h!]
 	\centering
 	\label{tab:tab_03_02}
@@ -185,7 +185,24 @@ VC 2 0 0V
 \section{Characteristics of Field-Effect Transistors and Triodes}
 
 \subsection{JFET SPICE Model}
-The element specification statement for a JFET must explicitly assign a \emph{model name} that is an arbitrary selection of alpha and numeric characters.
+The element specification statement for a JFET must explicitly assign a \emph{model name} that is an arbitrary selection of alpha and numeric characters. The general form is
+\begin{center}
+$\mathrm{J}{\cdots}n_1n_2n_3$ \emph{model name}
+\end{center}
+Nodes $n_1$, $n_2$, and $n_3$ belong to the drain, gate, and source, respectively. Only the \emph{n}-channel JFET is addressed in this book. Positive voltage and current directions for the device are clarified by Figure~\ref{fig:fig_04_03}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/fig_04_03.png}
+	\label{fig:fig_04_03}
+\end{figure}
+A .MODEL control statement must appear in the netlist code for a JFET circuit. The control statement has the following format:
+\begin{center}
+MODEL \emph{model name} NJF \emph{(parameters)}
+\end{center}
+If the parameter field is left blank, default values are assigned. Nondefault parameters are entered in the parameter field using the format \emph{parameter name = value}. The specific parameters of concern in the book are documented by Table~\ref{tab:tab_04_02}. The SPICE model describes the JFET in the pinchoff region by
+\begin{equation}
+	i_d=\frac{I_{DSS}}{(V_{to})^2}(V_{to}+v_{GS})^2=Beta(V_{to}+v_{GS})^2
+\end{equation}
 \begin{table}[h!]
 	\centering
 	\label{tab:tab_04_02}
@@ -202,6 +219,24 @@ The element specification statement for a JFET must explicitly assign a \emph{mo
 \end{table}
 
 \subsection{MOSFET SPICE Model}
+The element specification statement for a MOSFET must explicitly assign a \emph{model name} (an arbitrary selection of alpha and numeric characters) having the general form
+\begin{center}
+$\mathrm{M}{\cdots}n_1n_2n_3n_4$ \emph{model name}
+\end{center}
+Nodes $n_1$, $n_2$, $n_3$, and $n_4$ belong to the drain, gate, source, and substrate, respectively. Only the \emph{n}-channel MOSFET is addressed where the device positive voltage and current directions are clarified by Figure~\ref{fig:fig_04_10}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/fig_04_10.png}
+	\label{fig:fig_04_10}
+\end{figure}
+Format of the .MODEL control statement that must appear in the netlist code for a MOSFET circuit is as follows:
+\begin{center}
+MODEL \emph{model name} NMOS \emph{(parameters)}
+\end{center}
+A blank parameter field results in assignment of default paramter values. Nondefault parameters are entered in the parameter field as \emph{parameter name = value}. The specific parameters of concern in the book are documented by Table~\ref{tab:tab_04_03}. The SPICE model characterizes the enhancement mode MOSFET in the pinchoff region by
+\begin{equation}
+	i_d=\frac{I_{D\mathrm{on}}}{(V_T^2}(v_{GS}-V_T)^2=\frac{Kp}{2}(v_{GS}-V_T)^2
+\end{equation}
 \begin{table}[h!]
 	\centering
 	\label{tab:tab_04_03}
@@ -214,5 +249,21 @@ The element specification statement for a JFET must explicitly assign a \emph{mo
 		Rg & Gate resistance & 0 & $\mathrm{\Omega}$ \\ \hline
 	\end{tabular}
 \end{table}
+
+\section{Transistor Bias Considerations}
+
+\subsection{Stability-Factor Analysis}
+\begin{equation}
+	S_I=\left.\frac{{\Delta}I_{CQ}}{{\Delta}I_{CBO}}\right|_Q\approx\left.\frac{{\partial}I_{CQ}}{{\partial}I_{CBO}}\right|_Q
+	\label{eq:eq_05_11}
+\end{equation}
+
+
+\subsection{Parameter Variation Analysis with SPICE}
+PSpice offers two features that allow direct study of circuit performance change due to parameters variation. The first of these features is simply called \emph{sensitivity analysis}. It is invoked by a control statement of the following format:
+\begin{center}
+.SENS \textit{sensitive variable}
+\end{center}
+The \textit{sensitive variable} can be any node voltage or the current through any independent voltage source. A table is generated in the output file that gives the sensitivity of the sensitive variable to each parameter (specified or default) in the model of all BJTs and diodes that are directly comparable with (\ref{eq:eq_05_11}) and
 
 \end{document} 
