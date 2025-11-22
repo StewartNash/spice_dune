@@ -14,6 +14,7 @@
 \begin{document}
 \maketitle
 
+% Chapter 1
 \section{Circuit Analysis}
 
 \subsection{Spice Elements}
@@ -75,6 +76,7 @@ In order to determine $V_{Th}$ (open-circuit voltage between terminals 3,0), edi
 \subsection{Two-Port Networks}
 The \textit{z} parameters and the \textit{H} parameters can be numerically evaluated by SPICE methods. In electronics applications, the \textit{z} and \textit{h} parameters find application in analysis when small ac signals are impressed on circuits that exhibit limited-range linearity. Thus, in general, the test sources in the SPICE analysis should be of magnitudes comparable to the impressed signals of the anticipated application. Typically, the devices used in an electronic circuit will have one or more dc sources connected to bias or that place the device at a favorable point of operation. The input and output ports may be coupled by large capacitors that act to block the appearance of any dc voltages at the input and output ports while presenting negligible impedance to ac signals. Further, electronic circuits are usually frequency-sensitive so that any set of \textit{z} or \textit{h} parameters is valid for a particular frequency. Any SPICE-based evaluation of the \textit{z} and \textit{h} parameters should be capable of addressing the above outlined characteristics of electronics circuits.
 
+% Chapter 2
 \section{Semiconductor Diodes}
 
 \subsection{The Ideal Diode}
@@ -127,6 +129,7 @@ If the parameters field is left blank, default values are assigned. Otherwise, t
 	\end{tabular}
 \end{table}
 
+% Chapter 3
 \section{Characteristics of Bipolar Junction Transistors}
 
 \subsection{BJT SPICE Model}
@@ -182,6 +185,7 @@ VC 2 0 0V
 \end{lstlisting}
 \end{example}
 
+% Chapter 4
 \section{Characteristics of Field-Effect Transistors and Triodes}
 
 \subsection{JFET SPICE Model}
@@ -250,6 +254,7 @@ A blank parameter field results in assignment of default paramter values. Nondef
 	\end{tabular}
 \end{table}
 
+% Chapter 5
 \section{Transistor Bias Considerations}
 
 \subsection{Stability-Factor Analysis}
@@ -265,5 +270,32 @@ PSpice offers two features that allow direct study of circuit performance change
 .SENS \textit{sensitive variable}
 \end{center}
 The \textit{sensitive variable} can be any node voltage or the current through any independent voltage source. A table is generated in the output file that gives the sensitivity of the sensitive variable to each parameter (specified or default) in the model of all BJTs and diodes that are directly comparable with (\ref{eq:eq_05_11}) and
+
+% Chapter 6
+\section{Small-Signal Midfrequency BJT Amplifiers}
+
+\subsection{BJT Amplifier Analysis with SPICE}
+Since SPICE models of the BJT (see Chapter 3) provide the device terminal characteristics, a transistor amplifier can be properly biased and a time-varying input signal can be directly applied to the completely modeled amplifier circuit. Any desired signal that results can be measured directly in the time domain to form signal ratios that yield the current and voltage gains. With such modeling, any signal distortion that results from nonlinear operation of the BJT is readily apparent from inspection of the signal-time plots. Such an analysis approach is the analytical equivalent of laboratory operation of the amplifier where the time plot of signals is analogous to oscilloscope observation of the amplifier circuit signals.\\
+
+% Chapter 7
+\section{Small-Signal Midfrequency FET and Triode Amplifiers}
+
+\subsection{FET Amplifier Gain Calculation with SPICE}
+SPICE models of the JFET and MOSFET (introduced in Chapter 4) provide the terminal characteristics of the devices; thus, an amplifier can be properly biased and time-varying input signal directly applied to the completely modeled amplifier circuit. Such a simulation is the analytical equivalent of laboratory amplifier circuit operation. Any desired signal can be measured directly in the time domain to form signal ratios that yield current and voltage gains. Any signal distoration that may result from device nonlinearity is readily apparent from inspection of the signal time plots. 
+
+% Chapter 8
+\section{Frequency Effects in Amplifiers}
+
+\subsection{Frequency Response Using SPICE}
+
+% Chapter 9
+\section{Operational Amplifiers}
+
+\subsection{SPICE Op Amp Model}
+
+% Chapter 10
+\section{Switched Mode Power Supplies}
+
+\subsection{SPICE Analysis of SMPS}
 
 \end{document} 
