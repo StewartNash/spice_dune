@@ -1,4 +1,4 @@
-Ex4_1a..CIR - JFET drain characteristics
+Ex4_1a.CIR - JFET drain characteristics
 vGS 1 0 0V
 vDS 2 0 0V
 J 2 1 0 NJFET
