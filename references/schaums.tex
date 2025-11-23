@@ -23,11 +23,13 @@ The passive and active circuit elements introduced in the previous section are a
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/fig_01_02.png}
+	\caption{}
 	\label{fig:fig_01_02}
 \end{figure}
 
 \begin{table}[h!]
 \centering
+\caption{}
 \label{tab:tab_01_01}
 \begin{tabular}{|l|c|c|c|c|}
 \hline
@@ -53,6 +55,7 @@ Use SPICE methods to determine the Th\'evenin equivalent circuit looking to the 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/fig_01_07.png}
+	\caption{}
 	\label{fig:fig_01_07}
 \end{figure}
 In SPICE independent source models, an ideal voltage source of 0V acts as a short circuit and an ideal current source of 0 A acts as an infinite impedance or open circuit. Advantage will be taken of these two features to solve the problem.\\
@@ -83,6 +86,7 @@ The \textit{z} parameters and the \textit{H} parameters can be numerically evalu
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/fig_02_01.png}
+	\caption{}
 	\label{fig:fig_02_01}
 \end{figure}
 
@@ -117,6 +121,7 @@ MODEL \emph{model name} D \emph{(parameters)}
 If the parameters field is left blank, default values are assigned. Otherwise, the parameters field contains the number of desired specifications in the format \emph{parameter name = value}. Specific parameters of concern in this book are documented by Table~\ref{tab:tab_02_01}.
 \begin{table}[h!]
 	\centering
+	\caption{}
 	\label{tab:tab_02_01}
 	\begin{tabular}{|c|l|l|l|c|}
 		\hline
@@ -147,6 +152,7 @@ If the parameter field is left blank, default values are assigned. Non-default d
 All parameter values are entered with positive values regardless of whether the transistor is \textit{pnp} or \textit{npn}. Two transistor models will be used in this chapter--\emph{generic model} and \emph{default model}--as introduced in Example~\ref{ex:ex_03_02}.
 \begin{table}[h!]
 	\centering
+	\caption{}
 	\label{tab:tab_03_02}
 	\begin{tabular}{|c|l|l|l|c|}
 		\hline
@@ -168,6 +174,7 @@ Use SPICE methods to generate the CE collector characteristics for an \textit{np
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/fig_03_05_a.png}
+	\caption{}
 	\label{fig:fig_03_05_a}
 \end{figure}
 \begin{lstlisting}[basicstyle=\ttfamily\scriptsize\color{blue}, label={lst:ex_03_02}]
@@ -197,6 +204,7 @@ Nodes $n_1$, $n_2$, and $n_3$ belong to the drain, gate, and source, respectivel
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/fig_04_03.png}
+	\caption{}
 	\label{fig:fig_04_03}
 \end{figure}
 A .MODEL control statement must appear in the netlist code for a JFET circuit. The control statement has the following format:
@@ -209,6 +217,7 @@ If the parameter field is left blank, default values are assigned. Nondefault pa
 \end{equation}
 \begin{table}[h!]
 	\centering
+	\caption{}
 	\label{tab:tab_04_02}
 	\begin{tabular}{|c|l|l|l|l|}
 		\hline
@@ -231,6 +240,7 @@ Nodes $n_1$, $n_2$, $n_3$, and $n_4$ belong to the drain, gate, source, and subs
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/fig_04_10.png}
+	\caption{}
 	\label{fig:fig_04_10}
 \end{figure}
 Format of the .MODEL control statement that must appear in the netlist code for a MOSFET circuit is as follows:
@@ -243,6 +253,7 @@ A blank parameter field results in assignment of default paramter values. Nondef
 \end{equation}
 \begin{table}[h!]
 	\centering
+	\caption{}
 	\label{tab:tab_04_03}
 	\begin{tabular}{|c|l|l|l|l|}
 		\hline
@@ -296,6 +307,80 @@ SPICE models of the JFET and MOSFET (introduced in Chapter 4) provide the termin
 % Chapter 10
 \section{Switched Mode Power Supplies}
 
+\subsection{Buck Converter}
+The SMPS circuit of Figure~\ref{fig:fig_10_02}, known as a \emph{buck converter}, produces an average value output voltage $V_2=\langle{v_2}\rangle\leq{V_1}$.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/fig_10_02.png}
+	\caption{Buck converter}
+	\label{fig:fig_10_02}
+\end{figure}
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{figures/fig_10_03.png}
+%	\caption{Buck converter waveform}
+%	\label{fig:fig_10_03}
+%\end{figure}
+%TODO: Include Figure 10-03.
+
+\subsection{Boost Converter}
+The \emph{boost converter} SMPS circuit of Figure~\ref{fig:fig_10_04} produces an average value output voltage $V_2=\langle{v_2}\rangle>{V_1}$.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/fig_10_04.png}
+	\caption{Boost converter}
+	\label{fig:fig_10_04}
+\end{figure}
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{figures/fig_10_05.png}
+%	\caption{Boost converter waveform}
+%	\label{fig:fig_10_05}
+%\end{figure}
+%TODO: Include Figure 10-05.
+
 \subsection{SPICE Analysis of SMPS}
+For simulation of near ideal (lossless) SMPS, the switch element $Q$ can readily be modeled using the PSpice voltage-controlled switch. The element specification statement for the voltage-controlled switch has the form
+\begin{center}
+$\mathrm{S}{\cdots}n_1\,n_2\,c_1\,c_2$ VCS
+\end{center}
+Any alpha-numeric combination suffix can follow S to uniquely specify the voltage-controlled switch. The nodes are clarified by Figure~\ref{fig:fig_10_08}. A fast rise and fall time (5 ns), 1-V pulse should be used for the control voltage $v_{SW}$. Accepting the default ON state and OFF state control voltages of 1 V and 0 V, respectively, results in duty cycle ON time approximately equal to the pulse duration. For minimum conduction losses, the ON state resistance of the voltage control switch should be specified in the .MODEL statement by
+\begin{center}
+.MODEL VCS VSWITCH (RON = 1e-6)
+\end{center}
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{figures/fig_10_08.png}
+%	\label{fig:fig_10_08}
+%\end{figure}
+%TODO: Include Figure 10-08.
+\begin{example}\label{ex:ex_10_05}
+Use SPICE methods to model the buck converter of Figure~\ref{fig:fig_10_02}; let $D=0.5$, $f_s=25$ kHz, $L=100\,\mu\mathrm{H}$, $C=50\,\mu\mathrm{F}$, and $R_L=5\,\Omega$. Generate the set of waveforms analogous to Figure~\ref{fig:fig_10_03}.\\
+The netlist code follows, where the initial conditions on inductor current and capacitor voltage were determined after running a large integer number of cycles to find the repetitive values.
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize\color{blue}, label={lst:ex_10_05}]
+Ex10_5.CIR
+* BUCK CONVERTER
+* D=DUTY CYCLE, fs=SWITCHING FREQUENCY
+.PARAM D=-.5 fs=25e3Hz
+V1 1 0 DC 12V
+SW 1 2 4 2 VCS
+VSW 4 2 PULSE(0V 1V 0s 5ns 5ns {D/fs} {1/fs})
+L 2 3 100uH IC=0.6A
+D 0 2 DMOD
+C 3 0 50uF IC=6V
+RL 3 0 5ohm
+.MODEL DMOD D(N=0.01)
+.MODEL VCS VSWITCH (RON=1e-6ohm)
+.TRAN 5us 0.2ms 0s 100ns UIC
+.PROBE
+.END
+\end{lstlisting}
+Execute Listing~\ref{lst:ex_10_05} \verb|<Ex10_5.CIR>| and use the Probe feature of PSpice to plot the waveforms of Figure~\ref{fig:fig_10_09}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/fig_10_09.png}
+	\label{fig:fig_10_09}
+\end{figure}
+\end{example}
 
 \end{document} 
