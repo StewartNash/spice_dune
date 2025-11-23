@@ -8,11 +8,21 @@
 \theoremstyle{definition}
 \newtheorem{example}{Example}[section]
 
+% Custom command for editor
+\newcommand{\editor}[1]{\gdef\@editor{#1}}
+\newcommand{\printeditor}{%
+  \par\vspace{1em}
+  \textbf{Editor:} \@editor
+}
+
 \title{Electronic Devices and Circuits}
 \author{Jimmie J. Cathey}
 
+\editor{Stewart Nash}
+
 \begin{document}
 \maketitle
+\printeditor
 
 % Chapter 1
 \section{Circuit Analysis}
@@ -230,6 +240,26 @@ If the parameter field is left blank, default values are assigned. Nondefault pa
 		CGD & gate-drain cap. & high frequency & 0 & F \\ \hline
 	\end{tabular}
 \end{table}
+\begin{example}\label{ex:ex_04_01}
+Use SPICE methods to generate (a) the CS drain characteristics and (b) the transfer characteristic for an \textit{n}-channel JFET that has the parameter values Vto= -4V, Beta = 0.0005 A/V\textsuperscript{2}, Rd = 1$\mathrm{\Omega}$, Rs = 1$\mathrm{\Omega}$, and CGS = CGD = 2pF.\\
+(a) Figure~\ref{fig:fig_04_04}(a) shows a connection method for measurement of both the drain characteristics and the transfer characteristic. The following netlist code generates the drain characteristics that have been plotted using the Probe feature of PSpice as Figure~\ref{fig:fig_04_04}(b).
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize\color{blue}, label={lst:ex_04_01_a}]
+Ex4_1a.CIR - JFET drain characteristics
+vGS 1 0 0V
+vDS 2 0 0V
+J 2 1 0 NJFET
+.MODEL NJFET NJF ( Vto=-4V Beta=0.0005ApVsq
++ Rd=1ohm Rs=1ohm CGS=2pF CGD=2pF)
+.DC vDS 0V 25V 0.5V vGS 0V -4V 0.5V
+.PROBE
+.END
+\end{lstlisting}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/fig_04_04.png}
+	\label{fig:fig_04_04}
+\end{figure}
+\end{example}
 
 \subsection{MOSFET SPICE Model}
 The element specification statement for a MOSFET must explicitly assign a \emph{model name} (an arbitrary selection of alpha and numeric characters) having the general form

@@ -1,0 +1,59 @@
+* ex_04_01_a.cir - JFET drain characteristics
+* Element ordering: Jname D G S model
+
+* Independent sources (named so .dc sweep recognizes them)
+VGS 1 0 0
+VDS 2 0 0
+
+* JFET device: J1 D G S model
+J1 2 1 0 NJFET
+.model NJFET NJF(VTO=-4 BETA=0.0005 RD=1 RS=1 CGS=2p CGD=2p)
+
+* Nested DC sweep: inner VDS, outer VGS
+.dc VDS 0 25 0.5 VGS 0 -4 -0.5
+
+* Store vectors for later inspection/plotting
+.probe @J1[id] i(J1,2) i(VDS) V(2) V(1)
+* .probe I(J1,2) V(2) V(1)
+
+* Use .measure to capture ID at VDS=25 for each VGS sweep iteration
+* (ngspice accumulates .measure results for each sweep)
+* .measure dc ID_at_25 WHEN V(2)=25 PARAM @J1[id]
+
+.control
+run
+
+* show what vectors exist after run
+display
+
+* list .measure results (one per outer sweep value)
+* The 'measlist' command prints the values collected
+* measlist
+
+* Optional: print the first 10 points of the J1 current vector for inspection
+* (useful if you want numeric output to terminal)
+print @J1
+
+* Plot JFET drain current vs drain node voltage (V(2))
+* This will create one curve per outer-sweep value (each VGS)
+plot @J1[id] vs V(2)
+
+* For comparison - plot current through the VDS source
+* (useful to verify you didn't accidentally plot source current)
+plot i(VDS) vs V(2)
+* plot I(J1, 2) vs V(2)
+
+
+* If you'd like to export to PNG from within interactive ngspice
+* uncomment the following lines (works in non-interactive / batch too)
+* set term png
+* set output "drain_characteristics.png"
+* replot
+* set output
+
+* quit
+.endc
+
+.end
+
+
