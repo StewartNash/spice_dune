@@ -1,0 +1,23 @@
+* Ex1_5_ng.cir — Thevenin equivalent circuit (compatible version)
+
+.param V1value=0
+.param I2value=0
+.param Idpvalue=1
+
+V1 1 0 DC {V1value}
+R1 1 2 1
+I2 0 2 DC {I2value}
+R2 2 0 3
+R3 2 3 5
+
+G3 2 3 1 0 0.1
+Idp 0 3 DC {Idpvalue}
+
+.op
+
+* Save and print node voltages
+.save V(0) V(1) V(2) V(3)
+.print V(0) V(1) V(2) V(3)
+
+.end
+
