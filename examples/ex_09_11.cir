@@ -1,0 +1,41 @@
+* ex9_11_ngspice.cir
+* Op-amp transient simulation (converted from PSpice)
+
+* Input sine source
+VS 1 0 SIN(0 0.5 1k)
+
+* Feedback / bias network
+R1 2 0 1k
+R2 3 2 10k
+
+* Op-amp instance
+* XA:  Inv  NonInv  Out  Gnd
+XA 1 2 3 0 OPAMP
+
+* ------------------------
+* Op-amp macro-model
+* Pins: 1=Inv, 2=NonInv, 3=Out, 4=Common
+.SUBCKT OPAMP 1 2 3 4
+Rd 1 2 500k
+E1 5 4 1 2 -1e5
+Ro 5 3 100
+.ENDS OPAMP
+* ------------------------
+
+* Transient analysis
+.TRAN 1u 2m
+
+.control
+run
+
+shell mkdir -p plots
+
+set hcopydev=png
+hardcopy plots/ex9_11_tran.png v(1) v(3)
+
+quit
+.endc
+
+
+.end
+
