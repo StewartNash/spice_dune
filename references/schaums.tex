@@ -333,6 +333,45 @@ SPICE models of the JFET and MOSFET (introduced in Chapter 4) provide the termin
 \section{Operational Amplifiers}
 
 \subsection{SPICE Op Amp Model}
+Figure 9-1(a) presents the equivalent circuit model of the op amp using a VCVS to implement the gain. This circuit is easily realized by SPICE methods using the VCVS model of Fig. 1-2 and Table 1-1. It is frequently convenient to describe the op am through the use of a subcircuit as illustrated by the following netlist code:
+\begin{verbatim}
+.SUBCKT OPAMP 1   2    3   4
+*       Model Inv NInv Out Com
+Rd 1 2 500kohm
+E  5 4 (1,2) -1e5
+Ro 5 3 100ohm
+.ENDS OPAMP
+\end{verbatim}
+The nodes are labeled in Fig. 9-1(a). Input impedance ($R_d$ = 500 k$\Omega$), output impedance ($R_o$ = 100 $\Omega$), and open-loop voltage gain ($A_{OL}=-1\times10^5$) are typical values that can be changed if an application warrants. Also, SPICE libraries usually contain subcircuit models of commercially available op amps that can be utilized.
+\begin{example}\label{ex:ex_09_11}
+	Use SPICE methods to model the noninverting amplifier of Fig. 9-3 if the op amp has the parameter values of the subcircuit OPAMP above. Let $v_s=0.5\sin{(200{\pi}t)}$ V, $R_1=1\,\mathrm{k\Omega}$, and $R_2=10\,\mathrm{k\Omega}$. Verify that hte voltage gain predicted by (9.7) results.\\
+Netlist code describing the circuit is shown below:
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize\color{blue}, label={lst:ex_09_11}]
+Ex9_11.CIR
+vs 1 0 SIN(0V 0.5V 1kHz)
+R1 2 0 1kohm
+R2 3 2 10kohm
+XA 1 2 3 0 OPAMP
+.SUBCKT OPAMP 1   2    3   4
+*       Model Inv NInv Out Com
+Rd 1 2 500kohm
+E 5 4 (1,2) -1e5
+Ro 5 3 100ohm
+.ENDS OPAMP
+.TRAN 1us 2ms
+.PROBE
+.END
+\end{lstlisting}
+Execute <Ex9\_11.CIR> and use the Probe feature of PSpice to plot Fig. 9-10. By use of the marked values Fig. 9-10,
+\begin{equation}
+	A_v=\frac{5.5}{0.5}=11
+\end{equation}
+The voltage gain predicted by (9.7) is
+\begin{equation}
+	A_v=1+\frac{R_2}{R_1}=1+\frac{10\times10^3}{1\times10^3}=11
+\end{equation}
+Hence, (9.7) is validated.
+\end{example}
 
 % Chapter 10
 \section{Switched Mode Power Supplies}

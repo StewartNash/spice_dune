@@ -1,45 +1,26 @@
-* Ex9_12_ngspice.cir
-* First-order low-pass filter – AC gain magnitude
-
-* AC source (1 V small-signal)
+* ex_09_12.cir
 VS 1 0 AC 1
-
-* Input resistor
 R1 1 2 1k
-
-* Feedback network
-R2 2 3 10k
-C1 2 3 0.1u
-
-* Op-amp instance
-* Nodes: Inv  NonInv  Out  Com
+R 2 3 10k
+C 2 3 0.1u
 XA 2 0 3 0 OPAMP
-
+* ------------------
+* Op-amp macro-model
 * Ideal op-amp subcircuit
 .SUBCKT OPAMP 1 2 3 4
-*        Inv NInv Out Com
+* Pins: 1=Inv, 2=NonInv, 3=Out, 4=Common
 Rd 1 2 500k
 E1 5 4 1 2 -1e5
 Ro 5 3 100
 .ENDS OPAMP
-
-* AC analysis
+* ------------------
 .AC DEC 200 10 10k
-
 .control
 run
-
-* Create output directory
 shell mkdir -p plots
-
-* Select PNG hardcopy device
 set hcopydev=png
-
-* Save gain magnitude plot
-hardcopy plots/ex9_12_gain.png db(v(3)/v(1))
-
+hardcopy plots/ex_09_12.png db(v(3)/v(1))
 quit
 .endc
-
 .end
 

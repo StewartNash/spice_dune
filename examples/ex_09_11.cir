@@ -3,7 +3,7 @@ VS 1 0 SIN(0 0.5 1k)
 R1 2 0 1k
 R2 3 2 10k
 XA 1 2 3 0 OPAMP
-* ------------------------
+* ------------------
 * Op-amp macro-model
 * Pins: 1=Inv, 2=NonInv, 3=Out, 4=Common
 .SUBCKT OPAMP 1 2 3 4
@@ -11,7 +11,7 @@ Rd 1 2 500k
 E1 5 4 1 2 -1e5
 Ro 5 3 100
 .ENDS OPAMP
-* ------------------------
+* ------------------
 .TRAN 1u 2m
 .control
 run
