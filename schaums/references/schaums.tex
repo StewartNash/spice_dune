@@ -328,6 +328,34 @@ SPICE models of the JFET and MOSFET (introduced in Chapter 4) provide the termin
 \section{Frequency Effects in Amplifiers}
 
 \subsection{Frequency Response Using SPICE}
+SPICE methods offer a frequency sweep option that allows a small-signal, sinusoidal steady-state analysis of a circuit. The frequency sweep is invoked by a control statement of the following format:
+\begin{center}
+.AC DEC \emph{points start freq end freq}
+\end{center}
+Node voltages and device current are inherently complex number values. The magnitudes and phase angles of calculated quantities can be retrieved by the Probe feature of PSpice by appending a $p$ and $n$, respectively, to the variable. For example, magnitude and phase angle of the voltage between nodes 2 and 3 are specified by Vm(2,3) and Vp(2,3).
+\begin{example}
+	For the BJT amplifier circuit of Fig. 3-10, assume $C_c\rightarrow\infty$. The small-signal equivalent circuit is given by Fig. 8-4 where $R_B=R_1{\parallel}R_2$. Let $h_{oe}=h_{re}=0$, $h_{fe}=90$, $R_1=1\mathrm{k\Omega}$, $R_2=16\mathrm{k\Omega}$, $R_E=500\mathrm{\Omega}$, $C_E=330\mathrm{{\mu}F}$, $R_C=1\mathrm{k\Omega}$, and $R_L=10\mathrm{k\Omega}$. Use SPICE methods to determine the low-frequency cutoff point.\\
+	The netlist code that follows describes the circuit
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize\color{blue}, label={lst:ex_08_09}]
+Ex8_9.CIR
+vi 1 0 AC 0.250V
+R1 1 0 1kohm
+R2 1 0 16kohm
+Vsen 1 2 DC 0V
+Rhie 2 3 200ohm
+Fhfe 3 4 Vsen 90
+RE 3 0 500ohm
+CE 3 0 330uF
+RC 4 0 1kohm
+RL 4 0 10kohm
+.AC DEC 25 10Hz 10kHz
+.PROBE
+.END
+	\end{lstlisting}
+	Execute <Ex9\_9.CIR> and use the Probe feature of PSPice to yield the plots of Fig. 8-13. Fromt he marked points, it is seen that the low-frequency cutoff is $f_L=214.4\mathrm{Hz}$, where the voltage gain has a value of $A_{vL}=289.7$.
+\end{example}
+
+The above example utilized the small-signal equivalent circuit. Small-signal analysis frequency sensitivity can also be implemented using the SPICE model of the transistor directly.
 
 % Chapter 9
 \section{Operational Amplifiers}
