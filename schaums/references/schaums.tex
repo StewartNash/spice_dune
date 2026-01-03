@@ -89,6 +89,12 @@ In order to determine $V_{Th}$ (open-circuit voltage between terminals 3,0), edi
 \subsection{Two-Port Networks}
 The \textit{z} parameters and the \textit{H} parameters can be numerically evaluated by SPICE methods. In electronics applications, the \textit{z} and \textit{h} parameters find application in analysis when small ac signals are impressed on circuits that exhibit limited-range linearity. Thus, in general, the test sources in the SPICE analysis should be of magnitudes comparable to the impressed signals of the anticipated application. Typically, the devices used in an electronic circuit will have one or more dc sources connected to bias or that place the device at a favorable point of operation. The input and output ports may be coupled by large capacitors that act to block the appearance of any dc voltages at the input and output ports while presenting negligible impedance to ac signals. Further, electronic circuits are usually frequency-sensitive so that any set of \textit{z} or \textit{h} parameters is valid for a particular frequency. Any SPICE-based evaluation of the \textit{z} and \textit{h} parameters should be capable of addressing the above outlined characteristics of electronics circuits.
 
+\begin{example}\label{ex:ex_01_13}
+A sinusoidal source, a dc source, and a 10$\mathrm{\Omega}$ resistor are connected as shown in Fig. 1-12. If $v_s=10\sin{({\omega}t-30^\circ)}\,\mathrm{V}$ and $V_B=20\,\mathrm{V}$, use SPICE methods to determine the average value of $i(I_0)$, the RMS value of $i(I)$, and the average value of power $(P_0)$ supplied to $R$.\\
+The netlist code below describes the circuit. Notice that the two sources have been combined as a 10 V sinusoidal source with a 20 V DC bias. The frequency has been arbitrarily chosen as 100 Hz as the solution is independent of frequency.\\
+The Probe feature of PSpice is used to display the instantaneous values of $i(t)$ and $p_R(t)$. The running average and running RMS features of PSpice have been implemented as appropriate. Both features give the correct full-period values at the end of each period of the source waveform. Figure 1-13 shows the marked values as $I_0$ = 2.0 A, $I$ = 2.1213 A, and $P_0$ = 45.0 W.
+\end{example}
+
 % Chapter 2
 \section{Semiconductor Diodes}
 

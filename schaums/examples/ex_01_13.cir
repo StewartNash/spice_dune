@@ -1,0 +1,57 @@
+* Ex1_13_ngspice_png.cir
+* Average & RMS current, average power
+* PNG plot output
+
+* Source: 20 V DC + 10 V sinusoid @ 100 Hz
+VSVB 1 0 SIN(20 10 100)
+
+* Load resistor
+R1 1 0 10
+
+.tran 5us 10ms
+
+.control
+run
+
+* ------------------------------------
+* Currents and power (ngspice-correct)
+* ------------------------------------
+* Use source current (resistor current = -i(VSVB))
+let iR = -i(VSVB)
+let pR = v(1) * iR
+
+* One full period
+let T = 10m
+
+* ------------------------------------
+* Measurements
+* ------------------------------------
+meas tran IAVG avg iR from=0 to=T
+meas tran IRMS rms iR from=0 to=T
+meas tran PAVG avg pR from=0 to=T
+
+* ------------------------------------
+* Expand scalars into vectors for plotting
+* ------------------------------------
+let i_avg_line = IAVG + 0*time
+let i_rms_line = IRMS + 0*time
+let p_avg_line = PAVG + 0*time
+
+* ------------------------------------
+* PNG output setup
+* ------------------------------------
+set hcopydev=png
+set hcopypscolor=1
+
+* ------------------------------------
+* Save plots
+* ------------------------------------
+hardcopy avg_current.png iR i_avg_line
+hardcopy rms_current.png iR i_rms_line
+hardcopy avg_power.png pR p_avg_line
+
+quit
+.endc
+
+.end
+
