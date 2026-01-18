@@ -2,7 +2,7 @@
 SPICE Examples
 
 ## Introduction
-SPICE simulation is a cornerstone of my work. Therefore, I wanted to master SPICE simulations. As such, I also wanted a repository of SPICE examples or prototypes to use as a reference or library.
+This is a collection of ngspice examples intended to serve as a reference or library for those learning to use ngspice. It hosts primarily ngspice translations of the PSPICE examples found in "Schaum's Outline of Theory and Problems of Electronic Devices and Circuits" by Jimmie J. Cathey. It also hosts examples from Sedra and Smith's 'Microelectronics'. In addition, it hosts automating scripts for, among other things, plotting in Linux. Finally, it contains personal SPICE examples that I created during the period that this repository was under development.
 
 ## Schaum's Outline
 I took all SPICE related text, examples, and problems from the text "Schaum's Outline of Theory and Problems of ELectronic Devices and Circuits: Second Edition" by Jimmie J. Cathey, Ph.D. I translated all PSPICE simulations to ngspice for use in a Linux environment. This reference and example is in the 'schaums' folder.

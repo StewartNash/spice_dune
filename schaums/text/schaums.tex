@@ -323,6 +323,31 @@ The \textit{sensitive variable} can be any node voltage or the current through a
 
 \subsection{BJT Amplifier Analysis with SPICE}
 Since SPICE models of the BJT (see Chapter 3) provide the device terminal characteristics, a transistor amplifier can be properly biased and a time-varying input signal can be directly applied to the completely modeled amplifier circuit. Any desired signal that results can be measured directly in the time domain to form signal ratios that yield the current and voltage gains. With such modeling, any signal distortion that results from nonlinear operation of the BJT is readily apparent from inspection of the signal-time plots. Such an analysis approach is the analytical equivalent of laboratory operation of the amplifier where the time plot of signals is analogous to oscilloscope observation of the amplifier circuit signals.\\
+SPICE capabilities also lend themselves to BJT amplifier analysis using the small-signal equivalent circuits. In such case, the voltage-controlled voltage source (VCVS) and the current-controlled current source (CCCS) introduced in section 1.3 find obvious application in the small-signal equivalent circuits of the type shown in Fig. 6-1. Either time-varying analysis (.TRAN command statement) or sinusoidal steady-state analysis (.AC command statement) can be performed on the small-signal equivalent circuit.
+\begin{example}
+	For the amplifier of Fig. 3-10(a), let $v_i=0.25\sin{(2000{\pi}t)}$ V, $V_{CC}=15$ V, $CC_1=CC_2=CC=100\,\mu\mathrm{F}$, $R_1=6\,\mathrm{k}\Omega$, $R_2=50\,\mathrm{k}\Omega$, $R_C=R_L=1\,\mathrm{k}\Omega$, and $R_i=R_E=100\,\Omega$. The transistor is characterized by the model of Problem 5.4. Use SPICE methods to determine the CE hybrid parameters of (6.5) through (6.8) for this transistor at the point of operation.\\
+	The netlist code below describes the circuit.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize\color{blue}, label={lst:ex_06_05}]
+EX6_5.CIR
+vi 1 0 SIN(0V 250mV 10kHz)
+Ri 1 2 100ohm
+CC1 2 3 1000uF
+CC2 4 7 1000uF
+R1 3 0 6kohm
+R2 3 6 50kohm
+RC 6 4 1kohm
+RE 5 0 100ohm
+RL 7 0 1kohm
+VCC 6 0 15V
+Q 4 3 5 QNPNG
+.MODEL QNPNG NPN(Is=10fA Ikf=150mA Isc=10fA Bf=150
++ Br=3 Rb=1ohm Rc=1ohm Va=75V Cjc=10pF Cje=15pF)
+.TRAN 1us 0.1ms
+.PROBE
+.END
+	\end{lstlisting}
+	After executing <Ex6\_5.CIR>, the plots of Fig. 6-8 can be generated  by use of the Probe feature of PSpice. The resulting $h$-parameter value is indicated on each of the four plots of Fig. 6-8.
+\end{example}
 
 % Chapter 7
 \section{Small-Signal Midfrequency FET and Triode Amplifiers}
